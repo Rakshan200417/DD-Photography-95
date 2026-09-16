@@ -1,0 +1,406 @@
+:root,
+[data-theme="dark"] {
+  /* Dark / Night Mode: Hasselblad Gunmetal Gradient */
+  --bg-gradient: radial-gradient(circle at 50% 40%, #30343F 0%, #1A1D24 60%, #101217 100%);
+  --bg-color: #1A1D24; /* Fallback */
+  --surface-color: #272B34;
+  --surface-hover: #353A46;
+  --glass-bg: rgba(26, 29, 36, 0.7);
+  --border-color: rgba(255, 255, 255, 0.12);
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A5B1;
+  --text-muted: #7A7F8C;
+  --accent-color: #B5622E;
+  --accent-hover: #D4A373;
+  --gradient-gold: linear-gradient(135deg, #B5622E 0%, #D4A373 100%);
+
+  /* Navbar in Dark Mode: Transparent */
+  --nav-bg: transparent;
+  --nav-text: #FFFFFF;
+  --nav-link: #A0A5B1;
+  --nav-link-hover: #FFFFFF;
+  --nav-border: transparent;
+
+  --footer-bg: transparent;
+  --footer-text: #7A7F8C;
+  --footer-link: #A0A5B1;
+  --footer-link-hover: #FFFFFF;
+}
+
+[data-theme="light"] {
+  /* Light Mode: Premium Studio Backdrop Gradient */
+  --bg-gradient: radial-gradient(circle at 50% 30%, #FFFFFF 0%, #E9ECEF 70%, #DDE1E6 100%);
+  --bg-color: #E9ECEF; /* Fallback */
+  --surface-color: rgba(255, 255, 255, 0.8);
+  --surface-hover: #F8F9FA;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --text-primary: #1E2128;
+  --text-secondary: #5C6370;
+  --text-muted: #848A96;
+  --accent-color: #B5622E;
+  --accent-hover: #9E5227;
+  --gradient-gold: linear-gradient(135deg, #B5622E 0%, #9E5227 100%);
+
+  /* Navbar in Light Mode: Transparent */
+  --nav-bg: transparent;
+  --nav-text: #1E2128;
+  --nav-link: #5C6370;
+  --nav-link-hover: #1E2128;
+  --nav-border: transparent;
+
+  --footer-bg: transparent;
+  --footer-text: #848A96;
+  --footer-link: #5C6370;
+  --footer-link-hover: #1E2128;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-gradient, var(--bg-color));
+  background-attachment: fixed;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.navbar-custom {
+  background: var(--nav-bg) !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-custom .navbar-brand {
+  color: var(--nav-text) !important;
+}
+
+.navbar-custom .nav-link {
+  color: var(--nav-link) !important;
+  transition: color 0.2s ease;
+}
+
+.navbar-custom .nav-link:hover {
+  color: var(--nav-link-hover) !important;
+}
+
+section {
+  scroll-margin-top: 80px;
+  /* Adjust based on navbar height */
+}
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.canvas-container {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.content-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.content-container>.container {
+  flex-grow: 1;
+}
+
+/* Improve text visibility in dark mode */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-secondary) !important;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(43, 31, 23, 0.1);
+  border-color: var(--accent-color) !important;
+  background: var(--surface-hover) !important;
+}
+
+.card-title {
+  color: var(--accent-color) !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.card-text {
+  color: var(--text-secondary);
+}
+
+/* Typography Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary) !important;
+  font-weight: 800;
+  text-shadow: none;
+  /* Enhanced contrast against background */
+}
+
+p {
+  color: var(--text-secondary);
+  /* Slightly brighter than text-secondary for better readability */
+}
+
+.nav-link {
+  color: var(--nav-link) !important;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--nav-link-hover) !important;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: var(--footer-link-hover) !important;
+}
+
+/* Primary Color Overrides */
+.text-primary {
+  color: var(--accent-color) !important;
+}
+
+.btn-primary {
+  background: var(--accent-color) !important;
+  border: none !important;
+  color: #FBF7F2 !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 10px 25px;
+  transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(181, 98, 46, 0.3);
+  background: var(--accent-hover) !important;
+  opacity: 1;
+}
+
+.btn-outline-primary {
+  color: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
+  background: transparent !important;
+  font-weight: 600;
+  transition: all 0.3s ease !important;
+}
+
+.btn-outline-primary:hover {
+  background: var(--accent-color) !important;
+  color: #FBF7F2 !important;
+  transform: translateY(-2px);
+}
+
+/* Form Styling */
+.form-control {
+  background-color: var(--surface-color) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-secondary) !important;
+  border-radius: 12px;
+  padding: 12px 15px;
+}
+
+.form-control:focus {
+  background-color: var(--bg-color) !important;
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(181, 98, 46, 0.1) !important;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Fix text colors on white/light backgrounds */
+.bg-white,
+.bg-white p,
+.bg-white span,
+.bg-white label,
+.bg-white div {
+  color: #18181b !important;
+}
+
+.bg-light,
+.bg-light p,
+.bg-light span,
+.bg-light label,
+.bg-light div {
+  color: #27272a !important;
+}
+
+.bg-dark {
+  background-color: var(--bg-color) !important;
+}
+
+/* --------------------------------------------------------------------------
+   THEME ADAPTIVE STYLES FOR LANDING PAGE & GLOBAL CONTAINERS
+-------------------------------------------------------------------------- */
+.landing-page {
+  background-color: var(--bg-color) !important;
+  color: var(--text-primary) !important;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.landing-page .container,
+.landing-page nav,
+.landing-page footer,
+.landing-page .hero-section .container {
+  position: relative;
+  z-index: 2;
+  /* Sits cleanly above the fixed canvas */
+  pointer-events: auto;
+}
+
+.landing-page .card {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.landing-page h1,
+.landing-page h2,
+.landing-page h3,
+.landing-page h4,
+.landing-page h5 {
+  color: var(--text-primary) !important;
+}
+
+.landing-page p,
+.landing-page .lead {
+  color: var(--text-secondary) !important;
+}
+
+.landing-page .form-control,
+.landing-page .form-select {
+  background-color: var(--surface-color) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: 14px;
+}
+
+.landing-page .form-control:focus,
+.landing-page .form-select:focus {
+  background-color: var(--surface-color) !important;
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(181, 98, 46, 0.25) !important;
+  color: var(--text-primary) !important;
+}
+
+.landing-page .form-floating>label {
+  color: var(--text-muted) !important;
+}
+
+/* Pulsing radar callout badges for camera showcase */
+@keyframes cameraRadarPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(181, 98, 46, 0.7);
+  }
+
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(181, 98, 46, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(181, 98, 46, 0);
+  }
+}
+
+.radar-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  animation: cameraRadarPulse 2s infinite;
+}
+
+/* --------------------------------------------------------------------------
+   HERO BRAND TITLE HIGH-CONTRAST THEME ADAPTATION
+-------------------------------------------------------------------------- */
+.hero-brand-title {
+  user-select: none;
+}
+
+.hero-brand-title .brand-word {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* In Dark Mode (Moon): Crisp Light Pearl & Warm Champagne Gold */
+:root .hero-brand-title .brand-dd,
+:root .hero-brand-title .brand-photo,
+[data-theme="dark"] .hero-brand-title .brand-dd,
+[data-theme="dark"] .hero-brand-title .brand-photo {
+  color: #FBF7F2 !important;
+  text-shadow: 0 0 35px rgba(181, 98, 46, 0.45);
+}
+
+:root .hero-brand-title .brand-number,
+[data-theme="dark"] .hero-brand-title .brand-number {
+  color: #D4A373 !important;
+  text-shadow: 0 0 35px rgba(212, 163, 115, 0.7), 0 0 70px rgba(181, 98, 46, 0.4);
+  font-weight: 900;
+}
+
+/* In Light Mode (Sun): Crisp High-Contrast Jet Black & Rich Metallic Bronze */
+[data-theme="light"] .hero-brand-title .brand-dd,
+[data-theme="light"] .hero-brand-title .brand-photo {
+  color: #121217 !important;
+  text-shadow: 0 2px 20px rgba(181, 98, 46, 0.25);
+  font-weight: 800;
+}
+
+[data-theme="light"] .hero-brand-title .brand-number {
+  color: #B5622E !important;
+  text-shadow: 0 2px 15px rgba(181, 98, 46, 0.4);
+  font-weight: 900;
+}

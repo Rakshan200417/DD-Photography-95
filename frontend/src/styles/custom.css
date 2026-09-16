@@ -1,0 +1,167 @@
+/* General Body */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-secondary);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--nav-bg);
+}
+.navbar .navbar-brand {
+  color: var(--nav-text) !important;
+}
+.navbar .nav-link {
+  color: var(--nav-link) !important;
+}
+.navbar .nav-link:hover {
+  color: var(--nav-link-hover) !important;
+}
+
+/* Cards */
+.card {
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--accent-color);
+  border: none;
+  color: #FBF7F2;
+}
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  color: #FBF7F2;
+}
+.btn-danger {
+  background-color: var(--accent-color);
+}
+.btn-danger:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Forms */
+form label {
+  font-weight: 500;
+}
+form input, form select, form textarea {
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+}
+form button {
+  font-weight: 600;
+}
+
+/* Footer */
+footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 30px 0;
+  text-align: center;
+  margin-top: auto; /* pushes footer to bottom */
+}
+
+footer a {
+  color: var(--footer-link);
+  text-decoration: none;
+}
+footer a:hover {
+  color: var(--footer-link-hover);
+  text-decoration: underline;
+}
+
+/* Page Headers */
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
+}
+
+/* Animations (AOS overrides) */
+
+[data-aos].aos-animate {
+  opacity: 1;
+}
+
+/* Login page left panel theme rules - High contrast & crystal clear visibility */
+.login-left {
+  background: linear-gradient(135deg, #F0EAE1 0%, #E3DACD 100%) !important;
+}
+
+.login-left h1,
+.login-left .login-left-title,
+[data-theme="dark"] .login-left h1,
+[data-theme="light"] .login-left h1 {
+  color: #18181b !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.login-left .login-left-brand-num,
+[data-theme="dark"] .login-left .login-left-brand-num,
+[data-theme="light"] .login-left .login-left-brand-num {
+  color: #B5622E !important;
+  font-weight: 900 !important;
+}
+
+.login-left p,
+.login-left .login-left-desc,
+[data-theme="dark"] .login-left p,
+[data-theme="light"] .login-left p {
+  color: #2D3748 !important;
+  font-weight: 450 !important;
+  line-height: 1.7 !important;
+}
+
+.login-left .login-left-notice,
+[data-theme="dark"] .login-left .login-left-notice,
+[data-theme="light"] .login-left .login-left-notice {
+  color: #5A4E46 !important;
+  font-weight: 500 !important;
+}
+
+.login-left .login-studio-badge {
+  background: rgba(181, 98, 46, 0.18) !important;
+  color: #9E4D1E !important;
+  border: 1px solid rgba(181, 98, 46, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+/* Form input placeholder visibility on login page */
+.login-form-input::placeholder {
+  color: rgba(251, 247, 242, 0.6) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="light"] .login-form-input::placeholder {
+  color: #71717a !important;
+  opacity: 1 !important;
+}
+
+.login-home-link {
+  color: #A1A1AA !important;
+  transition: color 0.25s ease;
+}
+
+.login-home-link:hover {
+  color: var(--accent-hover, #D4A373) !important;
+  text-decoration: underline !important;
+}
+
