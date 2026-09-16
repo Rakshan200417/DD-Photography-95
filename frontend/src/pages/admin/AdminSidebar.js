@@ -11,7 +11,7 @@ import {
   FaMoon
 } from "react-icons/fa";
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ onClose }) {
   const navigate = useNavigate();
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
 
@@ -42,31 +42,31 @@ export default function AdminSidebar() {
 
       <ul className="admin-sidebar-nav">
         <li>
-          <NavLink className="admin-sidebar-link" to="/admin" end>
+          <NavLink className="admin-sidebar-link" to="/admin" end onClick={onClose}>
             <FaChartBar className="icon" /> Dashboard
           </NavLink>
         </li>
 
         <li>
-          <NavLink className="admin-sidebar-link" to="/admin/gallery">
+          <NavLink className="admin-sidebar-link" to="/admin/gallery" onClick={onClose}>
             <FaImages className="icon" /> Gallery
           </NavLink>
         </li>
 
         <li>
-          <NavLink className="admin-sidebar-link" to="/admin/orders">
+          <NavLink className="admin-sidebar-link" to="/admin/orders" onClick={onClose}>
             <FaClipboardList className="icon" /> Orders
           </NavLink>
         </li>
 
         <li>
-          <NavLink className="admin-sidebar-link" to="/admin/users">
+          <NavLink className="admin-sidebar-link" to="/admin/users" onClick={onClose}>
             <FaUsers className="icon" /> Users
           </NavLink>
         </li>
 
         <li>
-          <NavLink className="admin-sidebar-link" to="/admin/settings">
+          <NavLink className="admin-sidebar-link" to="/admin/settings" onClick={onClose}>
             <FaCog className="icon" /> Settings
           </NavLink>
         </li>

@@ -563,3 +563,51 @@
   background-color: #dc3545 !important;
   color: #FFFFFF !important;
 }
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN (MOBILE ADMIN DASHBOARD)
+-------------------------------------------------------------------------- */
+
+.admin-sidebar-wrapper {
+  z-index: 1005;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .admin-sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    z-index: 1005;
+  }
+  
+  .admin-sidebar-wrapper.open {
+    transform: translateX(0);
+  }
+  
+  .admin-sidebar {
+    position: static !important;
+    height: 100vh !important;
+  }
+  
+  .admin-layout-content {
+    margin-left: 0 !important;
+    padding-top: 80px !important; /* Buffer for mobile header */
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  .admin-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 1004;
+  }
+}

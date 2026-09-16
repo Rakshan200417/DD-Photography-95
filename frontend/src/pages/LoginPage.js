@@ -113,11 +113,14 @@ export default function LoginPage() {
             auto_select: false
           });
 
+          const screenWidth = window.innerWidth;
+          const btnWidth = screenWidth < 400 ? 270 : 340;
+
           window.google.accounts.id.renderButton(googleBtnRef.current, {
             theme: theme === 'dark' ? 'filled_black' : 'outline',
             size: 'large',
             shape: 'pill',
-            width: 340,
+            width: btnWidth,
             text: showRegister ? 'signup_with' : 'signin_with',
             logo_alignment: 'left'
           });
@@ -261,7 +264,7 @@ export default function LoginPage() {
 
   return (
     <div
-      className="position-relative"
+      className="position-relative login-page-wrapper"
       style={{
         minHeight: '100vh',
         display: 'flex',
@@ -275,6 +278,7 @@ export default function LoginPage() {
 
 
       <div
+        className="login-container-card"
         style={{
           width: '100%',
           maxWidth: '1050px',
@@ -356,6 +360,7 @@ export default function LoginPage() {
 
         {/* Right: Unified Sign-in / Register form */}
         <div
+          className="login-right-panel"
           style={{
             flex: '1 1 50%',
             background: 'var(--surface-color)',
@@ -368,7 +373,12 @@ export default function LoginPage() {
           <div style={{ width: '100%', maxWidth: '380px' }}>
             <div className="mb-4">
               <h3 style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-                {showRegister ? 'Create Account' : 'Welcome Back'}
+                {showRegister ? 'Create Account' : (
+                  <>
+                    <span className="d-none d-md-inline">Welcome Back</span>
+                    <span className="d-inline d-md-none">DD Photography 95</span>
+                  </>
+                )}
               </h3>
               <p className="small mt-1 mb-0" style={{ color: 'var(--text-secondary)' }}>
                 {showRegister

@@ -40,8 +40,7 @@ export default function LandingPage() {
           <div className="row align-items-center min-vh-100 py-5">
             {/* Left Column: Dedicated 3D Interactive Camera Stage Zone (Cleaned of all unwanted badges) */}
             <div
-              className="col-lg-6 mb-5 mb-lg-0 position-relative d-flex flex-column justify-content-center"
-              style={{ minHeight: "520px" }}
+              className="col-lg-6 mb-5 mb-lg-0 position-relative d-flex flex-column justify-content-center hero-camera-zone"
             >
               {/* Clean stage zone dedicated entirely to the 3D Camera */}
             </div>
@@ -121,19 +120,19 @@ export default function LandingPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.8 }}
-                className="d-flex gap-4 justify-content-lg-start justify-content-center flex-wrap pt-3"
+                className="tech-specs-container d-flex gap-4 justify-content-lg-start justify-content-center flex-wrap pt-3"
                 style={{ borderTop: "1px solid var(--border-color)" }}
               >
                 <div>
                   <div className="fw-bold fs-5" style={{ color: "var(--accent-color)" }}>36.4 MP</div>
                   <small style={{ color: "var(--text-muted)", fontSize: "0.75rem", letterSpacing: "1px" }}>FULL-FRAME RAW</small>
                 </div>
-                <div style={{ width: "1px", background: "var(--border-color)" }} />
+                <div className="tech-specs-divider" style={{ width: "1px", background: "var(--border-color)" }} />
                 <div>
                   <div className="fw-bold fs-5" style={{ color: "var(--text-primary)" }}>f/1.4</div>
                   <small style={{ color: "var(--text-muted)", fontSize: "0.75rem", letterSpacing: "1px" }}>PRIME OPTICS</small>
                 </div>
-                <div style={{ width: "1px", background: "var(--border-color)" }} />
+                <div className="tech-specs-divider" style={{ width: "1px", background: "var(--border-color)" }} />
                 <div>
                   <div className="fw-bold fs-5" style={{ color: "var(--accent-color)" }}>100%</div>
                   <small style={{ color: "var(--text-muted)", fontSize: "0.75rem", letterSpacing: "1px" }}>OPTICAL VIEWFINDER</small>

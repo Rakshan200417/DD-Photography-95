@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "r
 import { useEffect, useState, Suspense } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Lenis from "@studio-freight/lenis";
 import { FaWhatsapp } from "react-icons/fa";
 
 // Components
@@ -74,25 +73,10 @@ export default function App() {
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
 
-    // Initialize Lenis
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      smoothWheel: true,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
     // Simulate initial load completion
     const timer = setTimeout(() => setIsLoading(false), 2000);
     return () => {
       clearTimeout(timer);
-      lenis.destroy();
     };
   }, []);
 

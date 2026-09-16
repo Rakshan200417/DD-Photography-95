@@ -500,7 +500,7 @@ export default function AdminGallery() {
                   </p>
                 </div>
                 {/* Tier Tabs */}
-                <div className="btn-group" role="group">
+                <div className="d-flex flex-wrap gap-2" role="group">
                   {["Basic", "Medium", "Premium"].map((tier) => {
                     const count = tierFiles[tier].filter(Boolean).length;
                     return (
@@ -725,7 +725,7 @@ export default function AdminGallery() {
                       </div>
 
                       {/* Tabs to switch between Basic, Medium, Premium */}
-                      <div className="btn-group" role="group">
+                      <div className="d-flex flex-wrap gap-2" role="group">
                         {["Basic", "Medium", "Premium"].map((tier) => {
                           const isCurrent = currentCatTier === tier;
                           // Count how many images in this tier
