@@ -26,12 +26,8 @@ const FALLBACK_CATEGORIES = [
 export default function Order() {
   const location = useLocation();
   const navigate = useNavigate();
-  const query = new URLSearchParams(location.search);
 
   // Get data from URL
-  const urlCategoryName = query.get("category");
-  const urlPackageType = query.get("type");
-  const urlCategoryId = query.get("categoryId");
 
   // State
   const [categories, setCategories] = useState([]);
@@ -103,6 +99,7 @@ export default function Order() {
 
   useEffect(() => {
     fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Re-run resolution whenever URL params change (handles normal navigation)

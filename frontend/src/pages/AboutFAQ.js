@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import Accordion from 'react-bootstrap/Accordion';
 import { motion } from "framer-motion";
 import useCountUp from "../hooks/useCountUp";
-import { FaChevronDown } from "react-icons/fa";
 
 const StatItem = ({ end, label }) => {
   const { count, elementRef } = useCountUp(end);

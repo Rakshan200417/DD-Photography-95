@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import BookingSuccess3DModal from "../BookingSuccess3DModal";
 
 export default function OrderSection() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const query = new URLSearchParams(location.search);
 
   // State
   const [categories, setCategories] = useState([]);

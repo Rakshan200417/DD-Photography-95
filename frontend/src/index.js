@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import './styles/custom.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { BrowserRouter } from "react-router-dom";
 
 
 import ErrorBoundary from './components/ErrorBoundary';

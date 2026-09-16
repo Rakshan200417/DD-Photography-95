@@ -15,14 +15,15 @@ const useCountUp = (end, duration = 2000, start = 0) => {
       },
       { threshold: 0.1 }
     );
+    const currentElement = elementRef.current;
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    if (currentElement) {
+      observer.observe(currentElement);
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+      if (currentElement) {
+        observer.unobserve(currentElement);
       }
     };
   }, []);

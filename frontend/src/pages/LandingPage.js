@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import GallerySection from "../components/sections/GallerySection";
 import AboutSection from "../components/sections/AboutSection";
 import OrderSection from "../components/sections/OrderSection";
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 

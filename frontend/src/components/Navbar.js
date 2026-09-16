@@ -1,15 +1,13 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCameraRetro, FaMoon, FaSun } from "react-icons/fa";
 
 export default function Navbar() {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const [isUser, setIsUser] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "dark";
   });
@@ -25,11 +23,9 @@ export default function Navbar() {
     const user = localStorage.getItem("user");
     const admin = localStorage.getItem("admin");
     const userRole = localStorage.getItem("userRole");
-    const email = localStorage.getItem("userEmail"); // user email from login
 
     setIsUser(!!user || userRole === 'USER');
     setIsAdmin(userRole === 'ADMIN' || !!admin);
-    setUserEmail(email || "");
   }, [location]); // RE-RUN when route changes
 
   const handleLogout = () => {

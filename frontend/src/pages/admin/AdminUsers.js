@@ -7,8 +7,7 @@ import {
   FaUserCheck,
   FaCheckCircle,
   FaExclamationTriangle,
-  FaEnvelope,
-  FaUserCircle
+  FaEnvelope
 } from "react-icons/fa";
 
 export default function AdminUsers() {

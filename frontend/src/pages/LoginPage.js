@@ -102,7 +102,6 @@ export default function LoginPage() {
 
   // Mount Google Identity Services button (single instance)
   useEffect(() => {
-    /* global google */
     const renderGoogleBtn = () => {
       if (window.google?.accounts?.id && googleBtnRef.current) {
         try {
@@ -139,6 +138,7 @@ export default function LoginPage() {
     }, 250);
 
     return () => clearInterval(pollTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme, showRegister]);
 
   useEffect(() => {
