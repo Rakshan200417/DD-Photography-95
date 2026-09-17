@@ -56,7 +56,7 @@ export default function AdminSettings() {
 
   const fetchSettings = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/settings");
+      const res = await axios.get("https://dd-photography-95.onrender.com/api/settings");
       if (res.data) {
         setCurrency(res.data.currency || "$");
         setBasicPrice(res.data.basicPrice || "250");
@@ -74,7 +74,7 @@ export default function AdminSettings() {
   const fetchAdmins = async () => {
     setAdminsLoading(true);
     try {
-      const res = await axios.get("http://localhost:8080/api/auth/all");
+      const res = await axios.get("https://dd-photography-95.onrender.com/api/auth/all");
       setAdmins(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Error fetching admins:", err);
@@ -85,7 +85,7 @@ export default function AdminSettings() {
 
   const fetchDashboardStats = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/admin/dashboard");
+      const res = await axios.get("https://dd-photography-95.onrender.com/api/admin/dashboard");
       setStats(res.data);
       setDbStatus("Connected (MySQL / MariaDB Online)");
     } catch {
@@ -108,7 +108,7 @@ export default function AdminSettings() {
     setSaveSuccess(false);
 
     try {
-      await axios.put("http://localhost:8080/api/settings", {
+      await axios.put("https://dd-photography-95.onrender.com/api/settings", {
         currency,
         basicPrice,
         standardPrice,
@@ -132,7 +132,7 @@ export default function AdminSettings() {
       return;
     }
     try {
-      await axios.put(`http://localhost:8080/api/auth/admins/${id}/email`, { email: editAdminEmail });
+      await axios.put(`https://dd-photography-95.onrender.com/api/auth/admins/${id}/email`, { email: editAdminEmail });
       setEditingAdminId(null);
       fetchAdmins();
       setUserActionMsg("Admin notification email updated successfully.");
@@ -150,7 +150,7 @@ export default function AdminSettings() {
     setTestingEmail(true);
     setTestEmailResult(null);
     try {
-      const res = await axios.get(`http://localhost:8080/api/auth/test-email?to=${encodeURIComponent(testEmailAddress.trim())}`);
+      const res = await axios.get(`https://dd-photography-95.onrender.com/api/auth/test-email?to=${encodeURIComponent(testEmailAddress.trim())}`);
       setTestEmailResult({
         success: true,
         message: res.data.result || "Test email dispatched successfully! Please check your inbox and spam folder."

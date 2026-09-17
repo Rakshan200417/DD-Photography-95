@@ -13,7 +13,7 @@ export default function Home() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/categories");
+      const response = await axios.get("https://dd-photography-95.onrender.com/api/categories");
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -38,7 +38,7 @@ export default function Home() {
                       category.coverImage
                         ? category.coverImage.startsWith("http")
                           ? category.coverImage
-                          : `http://localhost:8080/uploads/${category.coverImage}`
+                          : `https://dd-photography-95.onrender.com/uploads/${category.coverImage}`
                         : `https://loremflickr.com/400/300/${category.name ? category.name.replace(/\s+/g, ',').toLowerCase() : 'photography'}`
                     }
                     onError={(e) => {

@@ -12,7 +12,7 @@ import {
   FaTimes
 } from "react-icons/fa";
 
-const API_BASE = "http://localhost:8080/api/gallery";
+const API_BASE = "https://dd-photography-95.onrender.com/api/gallery";
 
 export default function AdminGallery() {
   const [categories, setCategories] = useState([]);
@@ -203,7 +203,7 @@ export default function AdminGallery() {
       cat.coverImage
         ? cat.coverImage.startsWith("http")
           ? cat.coverImage
-          : `http://localhost:8080/uploads/${cat.coverImage}`
+          : `https://dd-photography-95.onrender.com/uploads/${cat.coverImage}`
         : null
     );
     setEditBasicPrice(cat.basicPrice || "");
@@ -275,7 +275,7 @@ export default function AdminGallery() {
       formData.append("image", file);
       formData.append("title", `${tier} Slot ${slotNumber}`);
 
-      await axios.post("http://localhost:8080/api/gallery/images", formData, {
+      await axios.post("https://dd-photography-95.onrender.com/api/gallery/images", formData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
 
@@ -294,7 +294,7 @@ export default function AdminGallery() {
     if (!window.confirm(`Delete this ${label}?`)) return;
 
     try {
-      await axios.delete(`http://localhost:8080/api/gallery/images/${imgId}`);
+      await axios.delete(`https://dd-photography-95.onrender.com/api/gallery/images/${imgId}`);
       showAlert("Photo deleted successfully");
       fetchCategories();
     } catch (err) {
@@ -638,7 +638,7 @@ export default function AdminGallery() {
             const coverSrc = cat.coverImage
               ? cat.coverImage.startsWith("http")
                 ? cat.coverImage
-                : `http://localhost:8080/uploads/${cat.coverImage}`
+                : `https://dd-photography-95.onrender.com/uploads/${cat.coverImage}`
               : null;
 
             const totalImages = cat.images ? cat.images.length : 0;
@@ -762,7 +762,7 @@ export default function AdminGallery() {
                         const imgUrl = slotImg
                           ? slotImg.imageUrl.startsWith("http")
                             ? slotImg.imageUrl
-                            : `http://localhost:8080/uploads/${slotImg.imageUrl}`
+                            : `https://dd-photography-95.onrender.com/uploads/${slotImg.imageUrl}`
                           : null;
 
                         return (

@@ -17,7 +17,7 @@ export default function AdminOrders() {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/bookings");
+      const res = await axios.get("https://dd-photography-95.onrender.com/api/bookings");
       // Sort newest first
       const sorted = (res.data || []).sort((a, b) => b.id - a.id);
       setBookings(sorted);
@@ -33,7 +33,7 @@ export default function AdminOrders() {
   const updateStatus = async (id, status) => {
     setUpdatingId(id);
     try {
-      await axios.put(`http://localhost:8080/api/bookings/${id}/status`, null, { params: { status } });
+      await axios.put(`https://dd-photography-95.onrender.com/api/bookings/${id}/status`, null, { params: { status } });
       await fetchBookings();
     } catch (err) {
       alert(err?.response?.data?.error || "Error updating status");

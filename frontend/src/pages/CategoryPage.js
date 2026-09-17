@@ -144,17 +144,17 @@ export default function CategoryPage() {
   const [categoryData, setCategoryData] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/settings")
+    axios.get("https://dd-photography-95.onrender.com/api/settings")
       .then(res => {
         if (res.data) setSettings(res.data);
       })
       .catch(err => console.error("Error fetching settings:", err));
 
-    axios.get("http://localhost:8080/api/categories")
+    axios.get("https://dd-photography-95.onrender.com/api/categories")
       .then(res => setCategoriesList(res.data))
       .catch(err => console.error("Error fetching categories:", err));
 
-    axios.get("http://localhost:8080/api/gallery/categories")
+    axios.get("https://dd-photography-95.onrender.com/api/gallery/categories")
       .then(res => {
         const found = res.data.find(c => c.name.toLowerCase() === category.toLowerCase());
         if (found) {
@@ -209,7 +209,7 @@ export default function CategoryPage() {
       .sort((a, b) => (a.slotNumber || 0) - (b.slotNumber || 0));
 
     const formatted = tierImgs.map((img) =>
-      img.imageUrl.startsWith("http") ? img.imageUrl : `http://localhost:8080/uploads/${img.imageUrl}`
+      img.imageUrl.startsWith("http") ? img.imageUrl : `https://dd-photography-95.onrender.com/uploads/${img.imageUrl}`
     );
 
     while (formatted.length < 4) {

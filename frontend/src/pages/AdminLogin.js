@@ -11,7 +11,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/login", {
+      const res = await axios.post("https://dd-photography-95.onrender.com/api/auth/login", {
         username: username ? username.trim() : "",
         password: password ? password.trim() : ""
       });

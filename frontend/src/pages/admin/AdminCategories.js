@@ -7,7 +7,7 @@ export default function AdminCategories() {
   const [newCategory, setNewCategory] = useState("");
 
   const fetchCategories = async () => {
-    const res = await axios.get("http://localhost:8080/api/categories");
+    const res = await axios.get("https://dd-photography-95.onrender.com/api/categories");
     setCategories(res.data);
   };
 
@@ -18,7 +18,7 @@ export default function AdminCategories() {
   const handleAddCategory = async () => {
     if (!newCategory) return;
     try {
-      await axios.post("http://localhost:8080/api/categories", { name: newCategory });
+      await axios.post("https://dd-photography-95.onrender.com/api/categories", { name: newCategory });
       setNewCategory("");
       fetchCategories();
     } catch (err) {
@@ -28,7 +28,7 @@ export default function AdminCategories() {
 
   const handleDeleteCategory = async (id) => {
     if (!window.confirm("Are you sure to delete this category?")) return;
-    await axios.delete(`http://localhost:8080/api/categories/${id}`);
+    await axios.delete(`https://dd-photography-95.onrender.com/api/categories/${id}`);
     fetchCategories();
   };
 

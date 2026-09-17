@@ -8,7 +8,7 @@ import { FaArrowRight } from "react-icons/fa";
 const SectionPackageCard = ({ pkg, index, navigate }) => {
   const { tiltProps } = useTilt({ maxRotation: 8 });
   const imageUrl = pkg.coverImage
-    ? `http://localhost:8080/uploads/${pkg.coverImage}`
+    ? `https://dd-photography-95.onrender.com/uploads/${pkg.coverImage}`
     : null;
 
   return (
@@ -105,7 +105,7 @@ export default function GallerySection() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/gallery/categories");
+        const res = await axios.get("https://dd-photography-95.onrender.com/api/gallery/categories");
         setPackages(res.data);
       } catch (err) {
         console.error("Failed to load categories", err);

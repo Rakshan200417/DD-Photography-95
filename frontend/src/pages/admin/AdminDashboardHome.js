@@ -12,7 +12,7 @@ export default function AdminDashboardHome() {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/admin/dashboard")
+    axios.get("https://dd-photography-95.onrender.com/api/admin/dashboard")
       .then(res => setStats(res.data))
       .catch(err => console.error(err));
   }, []);

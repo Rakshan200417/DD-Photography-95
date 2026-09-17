@@ -42,7 +42,7 @@ export default function OrderSection() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/categories");
+      const response = await axios.get("https://dd-photography-95.onrender.com/api/categories");
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -76,7 +76,7 @@ export default function OrderSection() {
     };
 
     try {
-      await axios.post("http://localhost:8080/api/bookings", payload);
+      await axios.post("https://dd-photography-95.onrender.com/api/bookings", payload);
       setShowModal(true);
     } catch (err) {
       console.error(err);

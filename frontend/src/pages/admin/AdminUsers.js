@@ -20,7 +20,7 @@ export default function AdminUsers() {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:8080/api/users/all");
+      const res = await axios.get("https://dd-photography-95.onrender.com/api/users/all");
       setUsers(Array.isArray(res.data) ? res.data : []);
       setErrorMsg(null);
     } catch (err) {
@@ -46,7 +46,7 @@ export default function AdminUsers() {
     }
 
     try {
-      await axios.delete(`http://localhost:8080/api/users/${userId}`);
+      await axios.delete(`https://dd-photography-95.onrender.com/api/users/${userId}`);
       setUsers((prev) => prev.filter((u) => u.id !== userId));
       setActionMsg(`User "${displayName}" has been successfully removed.`);
       setTimeout(() => setActionMsg(null), 4000);

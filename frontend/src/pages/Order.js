@@ -53,7 +53,7 @@ export default function Order() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/settings")
+    axios.get("https://dd-photography-95.onrender.com/api/settings")
       .then(res => {
         if (res.data) setSettings(res.data);
       })
@@ -113,7 +113,7 @@ export default function Order() {
   const fetchCategories = async () => {
     setCategoriesLoading(true);
     try {
-      const response = await axios.get("http://localhost:8080/api/categories");
+      const response = await axios.get("https://dd-photography-95.onrender.com/api/categories");
       const fetchedCategories = response.data;
       // If backend returns empty, fall back to hardcoded list so the UI is never blank
       const resolved = fetchedCategories && fetchedCategories.length > 0
@@ -162,7 +162,7 @@ export default function Order() {
     };
 
     try {
-      await axios.post("http://localhost:8080/api/bookings", payload);
+      await axios.post("https://dd-photography-95.onrender.com/api/bookings", payload);
       setShowModal(true);
     } catch (err) {
       console.error(err);

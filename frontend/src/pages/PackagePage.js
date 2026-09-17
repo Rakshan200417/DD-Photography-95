@@ -54,7 +54,7 @@ export default function PackagePage() {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/gallery/categories/${id}`);
+        const res = await axios.get(`https://dd-photography-95.onrender.com/api/gallery/categories/${id}`);
         setPkg(res.data);
         if (res.data.images) {
           setImages(res.data.images);
@@ -68,7 +68,7 @@ export default function PackagePage() {
     fetchCategory();
 
     // Fetch currency symbol from settings
-    axios.get('http://localhost:8080/api/settings')
+    axios.get('https://dd-photography-95.onrender.com/api/settings')
       .then(res => { if (res.data?.currency) setCurrency(res.data.currency); })
       .catch(() => {});
   }, [id]);
@@ -93,7 +93,7 @@ export default function PackagePage() {
       displayImages.push({ isPlaceholder: true, id: `placeholder-${tierName}-${displayImages.length}` });
     }
     return displayImages.map((img, i) => 
-      img.isPlaceholder ? `https://loremflickr.com/1200/800/${pkg.name.split(' ')[0].toLowerCase()}?random=${tierName}-${i}` : `http://localhost:8080/uploads/${img.imageUrl}`
+      img.isPlaceholder ? `https://loremflickr.com/1200/800/${pkg.name.split(' ')[0].toLowerCase()}?random=${tierName}-${i}` : `https://dd-photography-95.onrender.com/uploads/${img.imageUrl}`
     );
   };
 

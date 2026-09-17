@@ -48,7 +48,7 @@ export default function LoginPage() {
         console.warn('JWT client-side decode notice:', jwtErr);
       }
 
-      const res = await axios.post('http://localhost:8080/api/auth/google', {
+      const res = await axios.post('https://dd-photography-95.onrender.com/api/auth/google', {
         idToken: credentialResponse.credential,
         email: googleProfile.email,
         name: googleProfile.name,
@@ -143,7 +143,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     let mounted = true;
-    axios.get('http://localhost:8080/api/users/all')
+    axios.get('https://dd-photography-95.onrender.com/api/users/all')
       .then(res => {
         if (!mounted) return;
         const list = Array.isArray(res.data) ? res.data.map(u => u.email).filter(Boolean) : [];
@@ -170,7 +170,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:8080/api/auth/login', {
+      const res = await axios.post('https://dd-photography-95.onrender.com/api/auth/login', {
         username: identifier,
         password
       });
@@ -221,14 +221,14 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:8080/api/users/register', {
+      const res = await axios.post('https://dd-photography-95.onrender.com/api/users/register', {
         username: regUsername,
         email: regEmail,
         password: regPassword
       });
       if (res.data?.userId) {
         // Auto-login after registration
-        const login = await axios.post('http://localhost:8080/api/auth/login', {
+        const login = await axios.post('https://dd-photography-95.onrender.com/api/auth/login', {
           username: regEmail,
           password: regPassword
         });
