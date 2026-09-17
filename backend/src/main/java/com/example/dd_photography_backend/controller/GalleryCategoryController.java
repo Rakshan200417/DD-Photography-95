@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/gallery/categories")
-@CrossOrigin(origins = "http://localhost:3000")
 public class GalleryCategoryController {
 
     private final GalleryCategoryRepository categoryRepository;

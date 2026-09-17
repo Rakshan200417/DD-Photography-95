@@ -21,7 +21,6 @@ import com.example.dd_photography_backend.service.BookingService;
 
 @RestController
 @RequestMapping("/api/bookings")
-@CrossOrigin(origins = "http://localhost:3000") // Keep for specific controller, but Global Config is better
 public class BookingController {
 
     @Autowired

@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/gallery/images")
-@CrossOrigin(origins = "http://localhost:3000")
 public class GalleryImageController {
 
     private final GalleryImageRepository galleryImageRepository;

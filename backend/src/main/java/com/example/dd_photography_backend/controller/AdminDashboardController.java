@@ -14,7 +14,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin/dashboard")
-@CrossOrigin(origins = "http://localhost:3000")
 public class AdminDashboardController {
 
     private final BookingRepository bookingRepo;
