@@ -62,23 +62,19 @@ public class UserController {
         user.setUsername(username == null ? "" : username.trim());
         user.setEmail(normalizedEmail);
         user.setPassword(password);
-        user.setIsVerified(false);
-        
-        // Generate 6 digit OTP
-        String otp = String.format("%06d", new Random().nextInt(999999));
-        user.setOtpCode(otp);
-        user.setOtpExpiry(LocalDateTime.now().plusMinutes(10));
+        user.setIsVerified(true);
         
         User saved = userRepository.save(user);
 
-        // Send OTP Email
-        emailService.sendOtpEmail(saved.getEmail(), otp);
+        // Send login notification since they are now fully registered
+        emailService.sendLoginNotificationEmail(saved.getEmail(), saved.getUsername() != null ? saved.getUsername() : saved.getEmail(), "USER");
 
         return ResponseEntity.ok(Map.of(
+                "token", SIMPLE_TOKEN,
                 "userId", saved.getId(),
+                "username", saved.getUsername() == null ? "" : saved.getUsername(),
                 "email", saved.getEmail(),
-                "requiresOtp", true,
-                "message", "OTP sent to email. Please verify."
+                "message", "Registration success"
         ));
     }
 
@@ -140,14 +136,7 @@ public class UserController {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password"));
         }
 
-        if (user.getIsVerified() != null && !user.getIsVerified()) {
-            String newOtp = String.format("%06d", new java.util.Random().nextInt(999999));
-            user.setOtpCode(newOtp);
-            user.setOtpExpiry(java.time.LocalDateTime.now().plusMinutes(10));
-            userRepository.save(user);
-            emailService.sendOtpEmail(user.getEmail(), newOtp);
-            return ResponseEntity.status(403).body(Map.of("error", "A new verification code has been sent to your email.", "requiresOtp", true));
-        }
+
 
         return ResponseEntity.ok(Map.of(
                 "token", SIMPLE_TOKEN,

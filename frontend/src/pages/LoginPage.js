@@ -12,8 +12,6 @@ export default function LoginPage() {
   const [emails, setEmails] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [showOtp, setShowOtp] = useState(false);
-  const [otpCode, setOtpCode] = useState('');
 
   // Registration fields
   const [regUsername, setRegUsername] = useState('');
@@ -212,28 +210,23 @@ export default function LoginPage() {
         }
       }
     } catch (err) {
-      if (err.response?.data?.requiresOtp) {
-        setShowRegister(true);
-        setShowOtp(true);
-        setRegEmail(identifier);
-        setError('Your email is not verified. Please register again to get a new code.');
-        setLoading(false);
-        return;
-      }
       setError(err.response?.data?.error || err.response?.data?.message || 'Login failed. Please check your credentials.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleVerifyOtp = async (e) => {
+
+
+  const handleRegister = async (e) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
     try {
-      const res = await axios.post('https://dd-photography-95.onrender.com/api/users/verify-otp', {
+      const res = await axios.post('https://dd-photography-95.onrender.com/api/users/register', {
+        username: regUsername,
         email: regEmail,
-        otpCode: otpCode
+        password: regPassword
       });
       if (res.data?.token) {
         localStorage.removeItem('admin');
@@ -253,27 +246,6 @@ export default function LoginPage() {
           localStorage.setItem('user', String(res.data.userId));
         }
         window.location.href = '/home';
-      }
-    } catch (err) {
-      setError(err.response?.data?.error || err.response?.data?.message || 'Verification failed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-    try {
-      const res = await axios.post('https://dd-photography-95.onrender.com/api/users/register', {
-        username: regUsername,
-        email: regEmail,
-        password: regPassword
-      });
-      if (res.data?.requiresOtp) {
-        setShowOtp(true);
-        setError(null);
       }
     } catch (err) {
       setError(err.response?.data?.error || err.response?.data?.message || 'Registration failed');
@@ -529,44 +501,6 @@ export default function LoginPage() {
                   {loading ? 'Authenticating...' : 'Sign In'}
                 </button>
               </form>
-            ) : showOtp ? (
-              <form onSubmit={handleVerifyOtp}>
-                <div className="mb-4">
-                  <label className="form-label small fw-semibold" style={{ color: 'var(--text-primary)' }}>Enter 6-Digit OTP Code</label>
-                  <input
-                    type="text"
-                    className="form-control login-form-input text-center"
-                    placeholder="000000"
-                    value={otpCode}
-                    onChange={(e) => setOtpCode(e.target.value)}
-                    required
-                    maxLength={6}
-                    style={{
-                      background: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#FFFFFF',
-                      color: 'var(--text-primary)',
-                      borderColor: 'var(--border-color)',
-                      borderRadius: '12px',
-                      fontSize: '24px',
-                      letterSpacing: '10px'
-                    }}
-                  />
-                  <p className="small text-muted mt-2 text-center">We sent a verification code to <strong>{regEmail}</strong></p>
-                </div>
-
-                {error && (
-                  <div className="alert alert-danger p-2 small mb-3 rounded-3" role="alert">
-                    {error}
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100 py-2 fw-semibold rounded-pill mb-3"
-                  disabled={loading}
-                >
-                  {loading ? 'Verifying...' : 'Verify Email & Login'}
-                </button>
-              </form>
             ) : (
               <form onSubmit={handleRegister}>
                 <div className="mb-3">
@@ -676,7 +610,6 @@ export default function LoginPage() {
                     type="button"
                     onClick={() => {
                       setShowRegister(true);
-                      setShowOtp(false);
                       setError(null);
                     }}
                     style={{
@@ -696,7 +629,6 @@ export default function LoginPage() {
                   type="button"
                   onClick={() => {
                     setShowRegister(false);
-                    setShowOtp(false);
                     setError(null);
                   }}
                   style={{
