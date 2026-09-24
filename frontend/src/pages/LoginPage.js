@@ -22,7 +22,7 @@ export default function LoginPage() {
   const suggestionsRef = useRef(null);
   const googleBtnRef = useRef(null);
 
-  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || '204064221358-hd68ulc1ud32v8ll372pqb281du2a4d1.apps.googleusercontent.com';
+  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || '204064221358-hmhi5i60me9lbl2jet7d3k0f9pb7r8kl.apps.googleusercontent.com';
 
   const handleGoogleSuccess = async (credentialResponse) => {
     if (!credentialResponse?.credential) return;
