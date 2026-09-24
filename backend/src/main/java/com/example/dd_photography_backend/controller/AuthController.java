@@ -93,7 +93,12 @@ public class AuthController {
 
         if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
             if (user.getIsVerified() != null && !user.getIsVerified()) {
-                return ResponseEntity.status(403).body(Map.of("error", "Please verify your email first.", "requiresOtp", true));
+                String newOtp = String.format("%06d", new java.util.Random().nextInt(999999));
+                user.setOtpCode(newOtp);
+                user.setOtpExpiry(java.time.LocalDateTime.now().plusMinutes(10));
+                userRepo.save(user);
+                emailService.sendOtpEmail(user.getEmail(), newOtp);
+                return ResponseEntity.status(403).body(Map.of("error", "A new verification code has been sent to your email.", "requiresOtp", true));
             }
 
             System.out.println("[AUTH] Successfully authenticated USER: " + user.getEmail());
