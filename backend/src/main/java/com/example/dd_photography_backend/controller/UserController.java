@@ -20,7 +20,6 @@ import com.example.dd_photography_backend.repository.BookingRepository;
 import com.example.dd_photography_backend.repository.UserRepository;
 import com.example.dd_photography_backend.service.EmailService;
 import java.time.LocalDateTime;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/api/users")
