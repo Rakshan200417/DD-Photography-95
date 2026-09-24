@@ -92,6 +92,10 @@ public class AuthController {
                 .orElse(null);
 
         if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
+            if (user.getIsVerified() != null && !user.getIsVerified()) {
+                return ResponseEntity.status(403).body(Map.of("error", "Please verify your email first.", "requiresOtp", true));
+            }
+
             System.out.println("[AUTH] Successfully authenticated USER: " + user.getEmail());
 
             // Send login notification to the USER
@@ -208,6 +212,7 @@ public class AuthController {
             user.setEmail(email);
             user.setUsername(safeName);
             user.setPassword("GOOGLE_OAUTH_" + UUID.randomUUID().toString());
+            user.setIsVerified(true); // Auto-verify Google users
             user = userRepo.save(user);
             System.out.println("[AUTH] Auto-registered new user via Google: " + email);
         } else if (user.getUsername() != null && !user.getUsername().isBlank()) {

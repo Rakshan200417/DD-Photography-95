@@ -413,4 +413,25 @@ public class EmailService {
             return "SMTP ERROR: " + e.getClass().getName() + ": " + e.getMessage() + (e.getCause() != null ? " [Cause: " + e.getCause().getMessage() + "]" : "");
         }
     }
+
+    /**
+     * Send OTP Verification Email asynchronously.
+     */
+    public void sendOtpEmail(String toEmail, String otpCode) {
+        if (toEmail == null || toEmail.isBlank()) return;
+        CompletableFuture.runAsync(() -> {
+            try {
+                String subject = "🔑 Your Verification Code: " + otpCode;
+                String htmlContent = buildOtpEmailHtml(otpCode);
+                sendHtmlEmail(toEmail.trim(), subject, htmlContent);
+                System.out.println("[EMAIL SERVICE] Dispatched OTP email to: " + toEmail);
+            } catch (Exception e) {
+                System.err.println("[EMAIL ERROR] Failed to send OTP to " + toEmail + ": " + e.getMessage());
+            }
+        });
+    }
+
+    private String buildOtpEmailHtml(String otpCode) {
+        return "<!DOCTYPE html><html><head><meta charset='utf-8'/><style>body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #0c0c10; margin: 0; padding: 30px 10px; color: #FBF7F2; } .card { max-width: 580px; margin: 0 auto; background: #14141d; border-radius: 20px; border: 1px solid rgba(181, 98, 46, 0.35); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); } .header { background: linear-gradient(135deg, #181412 0%, #2B1F17 100%); padding: 30px 25px; text-align: center; border-bottom: 2px solid #B5622E; } .header h1 { margin: 0; font-size: 24px; letter-spacing: 2px; color: #B5622E; font-weight: 800; } .content { padding: 40px 25px; text-align: center; } .otp-box { background: #1c1c28; border-radius: 12px; padding: 20px; margin: 25px auto; width: 60%; font-size: 36px; font-weight: bold; letter-spacing: 10px; color: #B5622E; border: 1px dashed #B5622E; } .message { font-size: 15px; line-height: 1.7; color: #d1d1d6; } .footer { background: #0e0e14; padding: 22px 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); font-size: 11px; color: #71717a; } </style></head><body><div class='card'> <div class='header'> <h1>DD PHOTOGRAPHY 95</h1> <p style='margin: 5px 0 0 0; font-size: 11px; letter-spacing: 2px; color: #D4A373; text-transform: uppercase;'>ACCOUNT VERIFICATION</p> </div> <div class='content'> <div class='message'>Thank you for signing up! Please use the verification code below to complete your registration. This code will expire in 10 minutes.</div> <div class='otp-box'>" + otpCode + "</div> <div class='message' style='font-size: 12px; color: #8e8e98;'>If you did not request this, please ignore this email.</div> </div> <div class='footer'> &copy; " + java.time.LocalDateTime.now().getYear() + " DD Photography 95. All rights reserved. </div></div></body></html>";
+    }
 }

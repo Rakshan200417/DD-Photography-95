@@ -19,4 +19,10 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    private Boolean isVerified = false;
+
+    private String otpCode;
+
+    private java.time.LocalDateTime otpExpiry;
 }

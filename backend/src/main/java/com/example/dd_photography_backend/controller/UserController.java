@@ -18,6 +18,9 @@ import com.example.dd_photography_backend.model.Booking;
 import com.example.dd_photography_backend.model.User;
 import com.example.dd_photography_backend.repository.BookingRepository;
 import com.example.dd_photography_backend.repository.UserRepository;
+import com.example.dd_photography_backend.service.EmailService;
+import java.time.LocalDateTime;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/users")
@@ -28,6 +31,9 @@ public class UserController {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     private final String SIMPLE_TOKEN = "MY_SIMPLE_TOKEN_12345";
 
@@ -56,13 +62,67 @@ public class UserController {
         user.setUsername(username == null ? "" : username.trim());
         user.setEmail(normalizedEmail);
         user.setPassword(password);
+        user.setIsVerified(false);
+        
+        // Generate 6 digit OTP
+        String otp = String.format("%06d", new Random().nextInt(999999));
+        user.setOtpCode(otp);
+        user.setOtpExpiry(LocalDateTime.now().plusMinutes(10));
+        
         User saved = userRepository.save(user);
+
+        // Send OTP Email
+        emailService.sendOtpEmail(saved.getEmail(), otp);
 
         return ResponseEntity.ok(Map.of(
                 "userId", saved.getId(),
-                "username", saved.getUsername(),
                 "email", saved.getEmail(),
-                "message", "Registration success"
+                "requiresOtp", true,
+                "message", "OTP sent to email. Please verify."
+        ));
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<?> verifyOtp(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        String otpCode = body.get("otpCode");
+
+        if (email == null || otpCode == null) {
+            return ResponseEntity.status(400).body(Map.of("error", "Email and OTP are required"));
+        }
+
+        User user = userRepository.findByEmail(email.trim().toLowerCase()).orElse(null);
+        if (user == null) {
+            return ResponseEntity.status(404).body(Map.of("error", "User not found"));
+        }
+
+        if (user.getIsVerified() != null && user.getIsVerified()) {
+            return ResponseEntity.status(400).body(Map.of("error", "User is already verified"));
+        }
+
+        if (user.getOtpCode() == null || !user.getOtpCode().equals(otpCode.trim())) {
+            return ResponseEntity.status(400).body(Map.of("error", "Invalid OTP code"));
+        }
+
+        if (user.getOtpExpiry() == null || LocalDateTime.now().isAfter(user.getOtpExpiry())) {
+            return ResponseEntity.status(400).body(Map.of("error", "OTP has expired. Please register again."));
+        }
+
+        // OTP is valid
+        user.setIsVerified(true);
+        user.setOtpCode(null);
+        user.setOtpExpiry(null);
+        userRepository.save(user);
+
+        // Send login notification since they are now fully registered
+        emailService.sendLoginNotificationEmail(user.getEmail(), user.getUsername() != null ? user.getUsername() : user.getEmail(), "USER");
+
+        return ResponseEntity.ok(Map.of(
+                "token", SIMPLE_TOKEN,
+                "userId", user.getId(),
+                "username", user.getUsername() == null ? "" : user.getUsername(),
+                "email", user.getEmail(),
+                "message", "Verification and Login success"
         ));
     }
 
@@ -78,6 +138,10 @@ public class UserController {
         User user = userRepository.findByEmail(email.trim().toLowerCase()).orElse(null);
         if (user == null || !user.getPassword().equals(password)) {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password"));
+        }
+
+        if (user.getIsVerified() != null && !user.getIsVerified()) {
+            return ResponseEntity.status(403).body(Map.of("error", "Please verify your email first.", "requiresOtp", true));
         }
 
         return ResponseEntity.ok(Map.of(
