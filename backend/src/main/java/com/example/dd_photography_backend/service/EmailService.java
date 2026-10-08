@@ -18,7 +18,7 @@ public class EmailService {
     @Autowired(required = false)
     private JavaMailSender mailSender;
 
-    @Value("${spring.mail.username:dhilshanmohamed2002@gmail.com}")
+    @Value("${spring.mail.username:kukarakshan2004@gmail.com}")
     private String fromEmail;
 
     /**
@@ -143,25 +143,38 @@ public class EmailService {
     /**
      * Internal helper to transmit HTML MimeMessage via SMTP.
      */
+    @Value("${spring.mail.password:}")
+    private String apiKey;
+
+    /**
+     * Internal helper to transmit HTML email via Brevo HTTP API (Bypasses Render SMTP Block).
+     */
     private void sendHtmlEmail(String toEmail, String subject, String htmlBody) throws Exception {
-        if (mailSender == null) {
-            System.out.println("[EMAIL PREVIEW] (SMTP not configured in application.properties)");
-            System.out.println("-----------------------------------------------------------------");
-            System.out.println("TO: " + toEmail);
-            System.out.println("SUBJECT: " + subject);
-            System.out.println("-----------------------------------------------------------------");
+        if (apiKey == null || apiKey.isBlank()) {
+            System.err.println("[EMAIL ERROR] Missing Brevo API Key in spring.mail.password");
             return;
         }
 
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate();
+        org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+        headers.set("api-key", apiKey);
+        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+        headers.setAccept(java.util.Collections.singletonList(org.springframework.http.MediaType.APPLICATION_JSON));
 
-        helper.setFrom("DD Photography 95 <" + fromEmail + ">");
-        helper.setTo(toEmail);
-        helper.setSubject(subject);
-        helper.setText(htmlBody, true);
+        // Construct Brevo JSON payload
+        java.util.Map<String, Object> body = new java.util.HashMap<>();
+        body.put("sender", java.util.Map.of("name", "DD Photography 95", "email", fromEmail));
+        body.put("to", java.util.Collections.singletonList(java.util.Map.of("email", toEmail)));
+        body.put("subject", subject);
+        body.put("htmlContent", htmlBody);
 
-        mailSender.send(mimeMessage);
+        org.springframework.http.HttpEntity<java.util.Map<String, Object>> entity = new org.springframework.http.HttpEntity<>(body, headers);
+
+        org.springframework.http.ResponseEntity<String> response = restTemplate.postForEntity("https://api.brevo.com/v3/smtp/email", entity, String.class);
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new Exception("Brevo API failed with status: " + response.getStatusCode() + " body: " + response.getBody());
+        }
     }
 
     /**
