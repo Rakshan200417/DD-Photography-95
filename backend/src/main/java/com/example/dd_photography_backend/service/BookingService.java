@@ -34,6 +34,9 @@ public class BookingService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private com.example.dd_photography_backend.repository.AdminUserRepository adminUserRepository;
+
     public Booking createBooking(BookingRequest request) {
         if (request.getCategoryId() == null) {
              throw new IllegalArgumentException("Category ID cannot be null");
@@ -63,7 +66,7 @@ public class BookingService {
         Booking savedBooking = bookingRepository.save(booking);
 
         // Notify ALL Admins via Email
-        List<com.example.dd_photography_backend.model.AdminUser> allAdmins = com.example.dd_photography_backend.util.ApplicationContextProvider.getApplicationContext().getBean(com.example.dd_photography_backend.repository.AdminUserRepository.class).findAll();
+        List<com.example.dd_photography_backend.model.AdminUser> allAdmins = adminUserRepository.findAll();
         for (com.example.dd_photography_backend.model.AdminUser a : allAdmins) {
             String targetEmail = (a.getEmail() != null && !a.getEmail().isBlank()) ? a.getEmail() : "dhilshanmohamed2002@gmail.com";
             emailService.sendNewBookingAdminNotification(
