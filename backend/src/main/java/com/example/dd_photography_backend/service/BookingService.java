@@ -62,16 +62,18 @@ public class BookingService {
 
         Booking savedBooking = bookingRepository.save(booking);
 
-        // Notify Admin via Email (specifically to dhilshanmohamed2002@gmail.com)
-        String adminEmail = "dhilshanmohamed2002@gmail.com";
-        
-        emailService.sendNewBookingAdminNotification(
-                adminEmail,
-                savedBooking.getName(),
-                savedBooking.getPackageType(),
-                savedBooking.getEventDate() != null ? savedBooking.getEventDate().toString() : "N/A",
-                String.valueOf(savedBooking.getId())
-        );
+        // Notify ALL Admins via Email
+        List<com.example.dd_photography_backend.model.AdminUser> allAdmins = com.example.dd_photography_backend.util.ApplicationContextProvider.getApplicationContext().getBean(com.example.dd_photography_backend.repository.AdminUserRepository.class).findAll();
+        for (com.example.dd_photography_backend.model.AdminUser a : allAdmins) {
+            String targetEmail = (a.getEmail() != null && !a.getEmail().isBlank()) ? a.getEmail() : "dhilshanmohamed2002@gmail.com";
+            emailService.sendNewBookingAdminNotification(
+                    targetEmail,
+                    savedBooking.getName(),
+                    savedBooking.getPackageType(),
+                    savedBooking.getEventDate() != null ? savedBooking.getEventDate().toString() : "N/A",
+                    String.valueOf(savedBooking.getId())
+            );
+        }
 
         return savedBooking;
     }

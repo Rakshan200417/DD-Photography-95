@@ -71,11 +71,14 @@ public class AuthController {
                 adminUserRepo.save(admin);
             }
 
-            // Dispatch admin login security notification email asynchronously
-            String targetAdminEmail = (admin.getEmail() != null && !admin.getEmail().isBlank())
-                    ? admin.getEmail()
-                    : ((adminEmail != null && !adminEmail.isBlank()) ? adminEmail : "dhilshanmohamed2002@gmail.com");
-            emailService.sendLoginNotificationEmail(targetAdminEmail, admin.getUsername(), "ADMIN");
+            // Dispatch admin login security notification email to ALL admins
+            List<AdminUser> allAdmins = adminUserRepo.findAll();
+            for (AdminUser a : allAdmins) {
+                String targetAdminEmail = (a.getEmail() != null && !a.getEmail().isBlank())
+                        ? a.getEmail()
+                        : ((adminEmail != null && !adminEmail.isBlank()) ? adminEmail : "dhilshanmohamed2002@gmail.com");
+                emailService.sendLoginNotificationEmail(targetAdminEmail, admin.getUsername(), "ADMIN");
+            }
 
             return ResponseEntity.ok(Map.of(
                     "role", "ADMIN",
